@@ -12,6 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  globalSetup:'./utils/auth.setup.ts',
   testDir: './e2e',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -20,12 +21,13 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: 5,
+  workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
+    storageState:'state.json',
     baseURL: 'https://opensource-demo.orangehrmlive.com/',
  screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -37,10 +39,16 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'Login',
+      testMatch: 'login.spec.ts',
+       use: { ...devices['Desktop Chrome'] },
     },
-
+  {
+      name: 'Search',
+      testMatch: 'search.spec.ts',
+    use: { ...devices['Desktop Chrome'] },
+      dependencies: ['Login'],
+    },
    /* {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
