@@ -5,10 +5,10 @@ async function globalSetup() {
     const context = await browser.newContext();
   const page = await browser.newPage();
 
- await page.goto('https://opensource-demo.orangehrmlive.com/', {
+  await page.goto('https://opensource-demo.orangehrmlive.com/');
+/* await page.goto('https://opensource-demo.orangehrmlive.com/', {
   waitUntil: 'domcontentloaded',
-});
-
+}); */
   // Login
   await page.locator('input[name="username"]').fill('Admin');
   await page.locator('input[name="password"]').fill('admin123');
@@ -17,7 +17,7 @@ async function globalSetup() {
  //await page.waitForURL('**/dashboard');
 
   // Save session
-  await page.context().storageState({ path: 'State.json' });
+  await page.context().storageState({ path: 'state.json' });
 
  // await browser.close();
 }

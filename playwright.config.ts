@@ -47,7 +47,13 @@ export default defineConfig({
       name: 'Search',
       testMatch: 'search.spec.ts',
     use: { ...devices['Desktop Chrome'] },
-     // dependencies: ['Login'],
+      dependencies: ['Login'],
+    },
+   {
+      name: 'Invalid Credentials',
+      testMatch: 'loginInvalidCredentials.spec.ts',
+    use: { ...devices['Desktop Chrome'] },
+      dependencies: ['Login','Search'],
     },
    /* {
       name: 'firefox',

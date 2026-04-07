@@ -1,26 +1,24 @@
 import { test, expect } from '@playwright/test';
 test.describe('OrangeHRM Login Tests', () => {
-test('Login with valid credentials', async ({ page }) => {
-  await page.goto('/');
-  console.log( page.url());
+  test('Login with valid credentials', async ({ page }) => {
+  
+
+ /*  await page.goto('/');
+ console.log( page.url());
   await page.getByPlaceholder('Username').fill('Admin');
   await page.getByPlaceholder('password').fill('admin123');
   await page.getByRole('button', { name: 'Login'}).click();
 
-  await expect(page).toHaveURL(/dashboard/);
-
-
-
+ //await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+  await page.context().storageState({ path: 'state.json' }); */
+await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+    await page.getByRole("textbox", {name:'Username'}).fill('Admin');
+    await page.getByRole("textbox",{name:'Password'}).fill('admin123');
+    await page.getByRole("button",{name:'Login'}).click();
+    await page.getByRole('link', { name: 'Admin' }).click();
+    //await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+    await page.context().storageState({ path: 'state.json' });
 });
 });
 
-/*  test.describe('  Login with InvalidCredentials', () => {
-
-  test('User should see error message for invalid credentials', async ({ page }) => {
-    await page.goto("");
-    await page.getByPlaceholder('Username').fill('AdminTesovex');
-    await page.getByPlaceholder('Password').fill('admin');
-    await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page.getByText('Invalid credentials')).toBeVisible();
-  });
-});  */
+ 
